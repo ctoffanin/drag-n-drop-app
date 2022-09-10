@@ -1,20 +1,19 @@
 import { useState } from 'react';
-import { Data } from '../utils/interfaces';
-import { Status } from '../utils/types';
+import { Status, Todo } from '../util/types';
 
-export const useDragAndDrop = (initialState: Array<Data>) => {
+export const useDragAndDrop = (initialState: Array<Todo>) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [listItems, setListItems] = useState<Array<Data>>(initialState);
+  const [todosList, setTodosList] = useState<Array<Todo>>(initialState);
 
   const handleUpdateList = (id: number, status: Status) => {
-    let card = listItems.find((item) => item.id === id);
+    let card = todosList.find((todo) => todo.id === id);
 
     if (card && card.status !== status) {
       card.status = status;
-      if (Array.isArray(listItems)) {
-        setListItems((prev) => [
+      if (Array.isArray(todosList)) {
+        setTodosList((prev) => [
           card!,
-          ...prev.filter((item) => item.id !== id),
+          ...prev.filter((todo) => todo.id !== id),
         ]);
       }
     }
@@ -24,7 +23,7 @@ export const useDragAndDrop = (initialState: Array<Data>) => {
 
   return {
     isDragging,
-    listItems,
+    todosList,
     handleUpdateList,
     handleDragging,
   };

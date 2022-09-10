@@ -1,14 +1,15 @@
 import { DragEvent } from 'react';
-import { Data } from '../utils/interfaces';
+import { Todo } from '../util/types';
 
 type Props = {
-  data: Data;
+  data: Todo;
   handleDragging: (dragging: boolean) => void;
 };
 
 export const Card = ({ data, handleDragging }: Props) => {
+  const { id, title } = data;
   const onDragStart = (element: DragEvent<HTMLDivElement>) => {
-    element.dataTransfer.setData('text', `${data.id}`);
+    element.dataTransfer.setData('text', `${id}`);
     handleDragging(true);
   };
 
@@ -21,7 +22,7 @@ export const Card = ({ data, handleDragging }: Props) => {
       onDragEnd={onDragEnd}
       onDragStart={onDragStart}
     >
-      <p>{data.content}</p>
+      <p>{title}</p>
     </div>
   );
 };

@@ -1,20 +1,20 @@
 import { useDragAndDrop } from '../hooks/useDragNDrop';
-import { data } from '../utils/data';
-import { Status } from '../utils/types';
-import { Cards } from './Cards';
+import { data } from '../util/data';
+import { Status } from '../util/types';
+import { CardsContainer } from './CardsContainer';
 
-const statuses: Array<Status> = ['todo', 'inprogress', 'done'];
+const statuses: Array<Status> = ['todo', 'busy', 'done'];
 
 export const DragNDrop = () => {
-  const { isDragging, listItems, handleDragging, handleUpdateList } =
+  const { isDragging, todosList, handleDragging, handleUpdateList } =
     useDragAndDrop(data);
   return (
     <div className="grid">
       {statuses.map((status) => (
-        <Cards
+        <CardsContainer
           status={status}
           key={status}
-          items={listItems}
+          todos={todosList}
           isDragging={isDragging}
           handleDragging={handleDragging}
           handleUpdateList={handleUpdateList}

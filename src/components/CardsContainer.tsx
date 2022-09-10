@@ -1,18 +1,17 @@
 import { DragEvent } from 'react';
-import { Data } from '../utils/interfaces';
-import { Status } from '../utils/types';
+import { Status, Todo } from '../util/types';
 import { Card } from './Card';
 
 type Props = {
-  items: Array<Data>;
+  todos: Array<Todo>;
   status: Status;
   isDragging: boolean;
   handleDragging: (dragging: boolean) => void;
   handleUpdateList: (id: number, status: Status) => void;
 };
 
-export const Cards = ({
-  items = [],
+export const CardsContainer = ({
+  todos = [],
   status,
   isDragging,
   handleDragging,
@@ -20,7 +19,7 @@ export const Cards = ({
 }: Props) => {
   const onDrop = (element: DragEvent<HTMLDivElement>) => {
     element.preventDefault();
-    const id = +element.dataTransfer.getData('text');
+    const id = Number(element.dataTransfer.getData('text'));
     handleUpdateList(id, status);
     handleDragging(false);
   };
@@ -35,10 +34,10 @@ export const Cards = ({
       onDrop={onDrop}
     >
       <p>{status}</p>
-      {items.map(
-        (item) =>
-          status === item.status && (
-            <Card data={item} key={item.id} handleDragging={handleDragging} />
+      {todos.map(
+        (todo) =>
+          status === todo.status && (
+            <Card data={todo} key={todo.id} handleDragging={handleDragging} />
           )
       )}
     </div>

@@ -1,10 +1,11 @@
 import { DragNDrop } from './components/DragNDrop';
-import { Title } from './components/Title';
 
 function App() {
   return (
     <div className="container-main flex">
-      <Title />
+      <div className="title flex">
+        <h1>Drag 'n Drop Todo</h1>
+      </div>
       <DragNDrop />
     </div>
   );
